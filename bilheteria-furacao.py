@@ -6,55 +6,172 @@ setor = ('RED (Laterais do campo)',
          'VISITANTE (Espaço destinado à torcida adversária)',
          'BLACK / VIP (Área central inferior com cadeiras estofadas)',
          'CHOPERIA ARENA BRAHMA (Área VIP temática)')
+tipoingresso = ('Sócio Furacão', 'Meia-entrada', 'Inteira')
 valorsetor = (150.00, 150.00, 150.00, 150.00, 300.00, 300.00)
 torcedor = []
+t = 0
 
 def menu():
-    print(f'{letravermelha}='*40, f'{semfundo}')
-    print(f'{letravermelha}{'SISTEMA DE BILHETERIA FURACÃO':^40}', f'{semfundo}')
-    print(f'{letravermelha}='*40, f'{semfundo}')
+    while True:
+        print(f'{letravermelha}=' * 40)
+        print(f'{'SISTEMA DE BILHETERIA FURACÃO':^40}')
+        print(f'=' * 40, f'{semfundo}')
 
-    print('''
+        print('''
 [1] Emitir ingresso
 [2] Cancelar ingresso
 [3] Relatório de torcedores
 [4] Fechar caixa
-    ''')
+        ''')
 
-    opcao = int(input('Escolha uma opção => '))
-
-    print()
-    if opcao == 1:
-        emitiringresso()
+        opcao = int(input('Escolha uma opção => '))
+        print()
+        if opcao == 1:
+            emitiringresso()
+        elif opcao == 2:
+            cancelaringresso()
+        elif opcao == 3:
+            relatoriodetorcedores()
+        elif opcao == 4:
+            encerrar()
+        else:
+            print('Opção inválida! Por favor, tente novamente\n')
 
 def emitiringresso():
-    print(f'{letravermelha}=' * 40, f'{semfundo}')
-    print(f'{letravermelha}{'EMITIR INGRESSO':^40}', f'{semfundo}')
-    print(f'{letravermelha}=' * 40, f'{semfundo}')
+    global torcedor
+    print(f'{letravermelha}=' * 40)
+    print(f'{'EMITIR INGRESSO':^40}')
+    print(f'=' * 40, f'{semfundo}\n')
 
-    torcedor.append(str(input('\nInforme o nome do torcedor => ')).title())
+    nome = str(input('Informe o nome do torcedor => ')).title()
 
-    print('\nSETORES:\n')
+    print('\nSETORES DISPONÍVEIS:\n')
     for i in range (0, len(setor)):
-        print(f'[{i}] {setor[i]}')
-    
-    torcedor.append(int(input('\nEscolha um setor => ')))
+        print(f'[{i}] {setor[i]}: R$ {valorsetor[i]:.2f}')
 
-    print('''
-[S] Sócio Furacão
-[M] Meia-entrada
-[I] Inteira
-    ''')
-    tipoingressotorcedor = str(input('Selecione o tipo do ingresso: ').upper())
-    if tipoingressotorcedor in 'SM':
-        torcedor.append(valorsetor[torcedor[1]] * 0.5)
+    while True:
+        setortorc = int(input('\nEscolha um setor => '))
+        if setortorc >= 0 and setortorc < len(setor):
+            break
+        else:
+            print(f'Inválido! Por favor escolha um número de 0 a {len(setor)-1}.')
+
+    print('\n[0] Sócio Furacão\n[1] Meia-entrada\n[2] Inteira\n')
+
+    while True:
+        tipoingressotorcedor = int(input('Escolha o tipo do ingresso: '))
+        if tipoingressotorcedor >= 0 and tipoingressotorcedor <= 2:
+            if tipoingressotorcedor == 0 or tipoingressotorcedor == 1:
+                valor = valorsetor[setortorc] * 0.5
+            else:
+                valor = valorsetor[setortorc]
+            break
+        else:
+            print('Inválido! Por favor selecione 0, 1 ou 2.')
+
+    torcedor.append([nome, setortorc, tipoingressotorcedor, valor])
+
+    print(f'{letravermelha}=' * 40, f'{semfundo}')
+    print(f'{letravermelha}{f'INGRESSO Nº {len(torcedor)-1} CONFIRMADO!':^40}{semfundo}')
+    print(f'{letravermelha}=' * 40, f'{semfundo}')
+    print(f'{letravermelha}Nome: {semfundo}{torcedor[len(torcedor)-1][0]}')
+    print(f'{letravermelha}Setor: {semfundo}{setor[torcedor[len(torcedor)-1][1]]}')
+    print(f'{letravermelha}Tipo: {semfundo}{tipoingresso[torcedor[len(torcedor)-1][2]]}')
+    print(f'{letravermelha}Valor: {semfundo}R$ {torcedor[len(torcedor)-1][3]:.2f}')
+    print(f'{letravermelha}=' * 40, f'{semfundo}\n')
+
+    continuar = input('Digite algo para voltar ao menu: ')
+    print()
+
+def cancelaringresso():
+    print(f'{letravermelha}=' * 40)
+    print(f'{'CANCELAR INGRESSO':^40}')
+    print(f'=' * 40, f'{semfundo}\n')
+
+    if len(torcedor) != 0:
+        for i in range (0, len(torcedor)):
+            if torcedor[i] != None:
+                print(f'[{i}] {torcedor[i][0]}')
+
+        while True:
+            opcao = int(input('\nDigite um ingresso para cancelar (número) => '))
+            if opcao >= 0 and opcao < len(torcedor):
+                torcedor[opcao] = None
+                print('Ingresso cancelado com sucesso!\n')
+                break
+            else:
+                print('Invalido! Selecione um número das opções')
     else:
-        torcedor.append(valorsetor[torcedor[1]])
+        print('Não há nenhum ingresso para cancelar!')
 
+    continuar = input('Digite algo para voltar ao menu: ')
+    print()
+
+def relatoriodetorcedores():
+    print(f'{letravermelha}=' * 40)
+    print(f'{'RELATÓRIO DE TORCEDORES':^40}')
+    print(f'=' * 40, f'{semfundo}\n')
+
+    if len(torcedor) != 0:
+        for i in range(0, len(torcedor)):
+            print(f'INGRESSO Nº {i}')
+            if torcedor[i] != None:
+                print(f'Nome: {torcedor[i][0]}')
+                print(f'Setor: {setor[torcedor[i][1]]}')
+                print(f'Tipo do ingresso: {tipoingresso[torcedor[i][2]]}')
+                print(f'Valor do ingresso: R$ {torcedor[i][3]:.2f}\n')
+            else:
+                print('Nulo!\n')
+
+        i = 1
+        while i <= len(torcedor):
+            if torcedor[-i] != None:
+                print(f'{letravermelha}>> ÚLTIMO INGRESSO VENDIDO: {torcedor[-i][0]} <<{semfundo}\n')
+                break
+            else:
+                i += 1
+    else:
+        print('Ainda não há nenhum torcedor cadastrado!\n')
+
+    continuar = input('Digite algo para voltar ao menu: ')
+    print()
+
+def encerrar():
     print(f'{letravermelha}=' * 40, f'{semfundo}')
-    print(f'{letravermelha}{'INGRESSO CONFIRMADO!':<40}', f'{semfundo}')
-    print(f'{letravermelha}{f'Nome: {torcedor[0]} | Setor: {setor[torcedor[1]]} | Valor: R$ {torcedor[2]:.2f}':^40}', f'{semfundo}')
-    print(f'{letravermelha}=' * 40, f'{semfundo}')
+    print(f'{letravermelha}{"RELATÓRIO FINAL DA ARENA":^40}{semfundo}')
+    print(f'{letravermelha}=' * 40, f'{semfundo}\n')
+
+    valores_validos = []
+    socios_furacao = 0
+
+    for ingresso in torcedor:
+        if ingresso != None:
+            valores_validos.append(ingresso[3])
+            if ingresso[2] == 0:
+                socios_furacao += 1
+
+    total_vendidos = len(valores_validos)
+
+    if total_vendidos > 0:
+        faturamento = sum(valores_validos)  # sum() soma todos os itens de uma lista
+        media = faturamento / total_vendidos
+        mais_caro = max(valores_validos)  # max() pega o maior valor
+        mais_barato = min(valores_validos)  # min() pega o menor valor
+
+        print(f'Total de ingressos vendidos: {total_vendidos}')
+        print(f'Faturamento total: R$ {faturamento:.2f}')
+        print(f'Valor médio pago por ingresso: R$ {media:.2f}')
+        print(f'Ingresso mais caro: R$ {mais_caro:.2f}')
+        print(f'Ingresso mais barato: R$ {mais_barato:.2f}')
+        print(f'Quantidade de Sócios Furacão: {socios_furacao}')
+    else:
+        print('Nenhum ingresso válido foi vendido nesta sessão.')
+
+    print()
+    print(f'{letravermelha}=' * 40)
+    print(f'{"SISTEMA ENCERRADO":^40}')
+    print(f'=' * 40, f'{semfundo}')
+    exit()
 
 if __name__ == '__main__':
     menu()
