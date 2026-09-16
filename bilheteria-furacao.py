@@ -11,11 +11,14 @@ valorsetor = (150.00, 150.00, 150.00, 150.00, 300.00, 300.00)
 torcedor = []
 t = 0
 
+def titulo(texto):
+    print(f'{letravermelha}=' * 40)
+    print(f'{texto:^40}')
+    print(f'=' * 40, f'{semfundo}')
+
 def menu():
     while True:
-        print(f'{letravermelha}=' * 40)
-        print(f'{'SISTEMA DE BILHETERIA FURACÃO':^40}')
-        print(f'=' * 40, f'{semfundo}')
+        titulo('SISTEMA DE BILHETERIA FURACÃO')
 
         print('''
 [1] Emitir ingresso
@@ -39,9 +42,7 @@ def menu():
 
 def emitiringresso():
     global torcedor
-    print(f'{letravermelha}=' * 40)
-    print(f'{'EMITIR INGRESSO':^40}')
-    print(f'=' * 40, f'{semfundo}\n')
+    titulo('EMITIR INGRESSO')
 
     nome = str(input('Informe o nome do torcedor => ')).title()
 
@@ -71,22 +72,18 @@ def emitiringresso():
 
     torcedor.append([nome, setortorc, tipoingressotorcedor, valor])
 
-    print(f'{letravermelha}=' * 40, f'{semfundo}')
-    print(f'{letravermelha}{f'INGRESSO Nº {len(torcedor)-1} CONFIRMADO!':^40}{semfundo}')
-    print(f'{letravermelha}=' * 40, f'{semfundo}')
+    print()
+    titulo(f'INGRESSO Nº {len(torcedor)-1} CONFIRMADO!')
     print(f'{letravermelha}Nome: {semfundo}{torcedor[len(torcedor)-1][0]}')
     print(f'{letravermelha}Setor: {semfundo}{setor[torcedor[len(torcedor)-1][1]]}')
     print(f'{letravermelha}Tipo: {semfundo}{tipoingresso[torcedor[len(torcedor)-1][2]]}')
     print(f'{letravermelha}Valor: {semfundo}R$ {torcedor[len(torcedor)-1][3]:.2f}')
-    print(f'{letravermelha}=' * 40, f'{semfundo}\n')
 
-    continuar = input('Digite algo para voltar ao menu: ')
+    continuar = input('\nDigite algo para voltar ao menu: ')
     print()
 
 def cancelaringresso():
-    print(f'{letravermelha}=' * 40)
-    print(f'{'CANCELAR INGRESSO':^40}')
-    print(f'=' * 40, f'{semfundo}\n')
+    titulo('CANCELAR INGRESSO')
 
     if len(torcedor) != 0:
         for i in range (0, len(torcedor)):
@@ -108,9 +105,7 @@ def cancelaringresso():
     print()
 
 def relatoriodetorcedores():
-    print(f'{letravermelha}=' * 40)
-    print(f'{'RELATÓRIO DE TORCEDORES':^40}')
-    print(f'=' * 40, f'{semfundo}\n')
+    titulo('RELATÓRIO DE TORCEDORES')
 
     if len(torcedor) != 0:
         for i in range(0, len(torcedor)):
@@ -137,9 +132,7 @@ def relatoriodetorcedores():
     print()
 
 def encerrar():
-    print(f'{letravermelha}=' * 40, f'{semfundo}')
-    print(f'{letravermelha}{"RELATÓRIO FINAL DA ARENA":^40}{semfundo}')
-    print(f'{letravermelha}=' * 40, f'{semfundo}\n')
+    titulo('RELATÓRIO FINAL DA ARENA')
 
     valores_validos = []
     socios_furacao = 0
@@ -168,9 +161,7 @@ def encerrar():
         print('Nenhum ingresso válido foi vendido nesta sessão.')
 
     print()
-    print(f'{letravermelha}=' * 40)
-    print(f'{"SISTEMA ENCERRADO":^40}')
-    print(f'=' * 40, f'{semfundo}')
+    titulo('SISTEMA ENCERRADO')
     exit()
 
 if __name__ == '__main__':
