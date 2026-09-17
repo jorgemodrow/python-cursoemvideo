@@ -1,5 +1,5 @@
 # Sistema de Gestão de Bilheteria
-<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"><img src="https://img.shields.io/badge/Athletico_Paranaense-cc0000?style=for-the-badge&labelColor=000000" alt="Athletico Paranaense">
+<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"> <img src="https://img.shields.io/badge/Athletico_Paranaense-cc0000?style=for-the-badge&labelColor=000000" alt="Athletico Paranaense">
 
 Este projeto é um sistema interativo de bilheteria de terminal desenvolvido em Python. O objetivo principal foi consolidar os fundamentos da linguagem, saindo da teoria e construindo uma aplicação real do zero, simulando a gestão de ingressos da Ligga Arena.
 
