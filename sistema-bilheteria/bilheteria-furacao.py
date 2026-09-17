@@ -9,36 +9,21 @@ setor = ('RED (Laterais do campo)',
 tipoingresso = ('Sócio Furacão', 'Meia-entrada', 'Inteira')
 valorsetor = (150.00, 150.00, 150.00, 150.00, 300.00, 300.00)
 torcedor = []
-t = 0
+
+def leiaInt(txt):
+    while True:
+        res = input(txt)
+        if res.isnumeric():
+            break
+        else:
+            print(f'{letravermelha}ERRO! Digite um número inteiro válido.{semfundo}')
+
+    return int(res)
 
 def titulo(texto):
     print(f'{letravermelha}=' * 40)
     print(f'{texto:^40}')
     print(f'=' * 40, f'{semfundo}')
-
-def menu():
-    while True:
-        titulo('SISTEMA DE BILHETERIA FURACÃO')
-
-        print('''
-[1] Emitir ingresso
-[2] Cancelar ingresso
-[3] Relatório de torcedores
-[4] Fechar caixa
-        ''')
-
-        opcao = int(input('Escolha uma opção => '))
-        print()
-        if opcao == 1:
-            emitiringresso()
-        elif opcao == 2:
-            cancelaringresso()
-        elif opcao == 3:
-            relatoriodetorcedores()
-        elif opcao == 4:
-            encerrar()
-        else:
-            print('Opção inválida! Por favor, tente novamente\n')
 
 def emitiringresso():
     global torcedor
@@ -60,12 +45,12 @@ def emitiringresso():
     print('\n[0] Sócio Furacão\n[1] Meia-entrada\n[2] Inteira\n')
 
     while True:
-        tipoingressotorcedor = int(input('Escolha o tipo do ingresso: '))
-        if tipoingressotorcedor >= 0 and tipoingressotorcedor <= 2:
-            if tipoingressotorcedor == 0 or tipoingressotorcedor == 1:
-                valor = valorsetor[setortorc] * 0.5
-            else:
-                valor = valorsetor[setortorc]
+        tipoingressotorcedor = leiaInt('Escolha o tipo do ingresso: ')
+        if tipoingressotorcedor == 0 or tipoingressotorcedor == 1:
+            valor = valorsetor[setortorc] * 0.5
+            break
+        elif tipoingressotorcedor == 2:
+            valor = valorsetor[setortorc]
             break
         else:
             print('Inválido! Por favor selecione 0, 1 ou 2.')
@@ -91,18 +76,17 @@ def cancelaringresso():
                 print(f'[{i}] {torcedor[i][0]}')
 
         while True:
-            opcao = int(input('\nDigite um ingresso para cancelar (número) => '))
-            if opcao >= 0 and opcao < len(torcedor):
-                torcedor[opcao] = None
-                print('Ingresso cancelado com sucesso!\n')
+            opcao = leiaInt('\nDigite um ingresso para cancelar (999 para voltar ao menu) => ')
+            if opcao == 999:
+                print()
                 break
+            elif opcao >= 0 and opcao < len(torcedor):
+                torcedor[opcao] = None
+                print(f'Ingresso [{opcao}] cancelado com sucesso!')
             else:
-                print('Invalido! Selecione um número das opções')
+                print(f'{letravermelha}Inválido! Selecione um número das opções.{semfundo}')
     else:
         print('Não há nenhum ingresso para cancelar!')
-
-    continuar = input('Digite algo para voltar ao menu: ')
-    print()
 
 def relatoriodetorcedores():
     titulo('RELATÓRIO DE TORCEDORES')
@@ -164,5 +148,34 @@ def encerrar():
     titulo('SISTEMA ENCERRADO')
     exit()
 
-if __name__ == '__main__':
-    menu()
+
+# Programa Principal
+while True:
+    titulo('SISTEMA DE BILHETERIA FURACÃO')
+
+    print('''
+[1] Emitir ingresso
+[2] Cancelar ingresso
+[3] Relatório de torcedores
+[4] Fechar caixa
+    ''')
+
+    while True:
+        opcao = leiaInt('Escolha uma opção => ')
+        if opcao == 1:
+            print()
+            emitiringresso()
+            break
+        elif opcao == 2:
+            print()
+            cancelaringresso()
+            break
+        elif opcao == 3:
+            print()
+            relatoriodetorcedores()
+            break
+        elif opcao == 4:
+            print()
+            encerrar()
+        else:
+            print(f'{letravermelha}Opção inválida! Por favor, tente novamente.{semfundo}')
