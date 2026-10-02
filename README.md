@@ -1,5 +1,7 @@
 # Exercícios de Python — Curso em Vídeo
 
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+
 Repositório contendo a minha resolução completa de todos os exercícios de Python propostos ao longo dos três mundos do curso da plataforma **Curso em Vídeo**, ministrado pelo professor **Gustavo Guanabara**.
 
 ## Estrutura do Curso
