@@ -2,11 +2,7 @@
 
 Repositório contendo a minha resolução completa de todos os exercícios de Python propostos ao longo dos três mundos do curso da plataforma **Curso em Vídeo**, ministrado pelo professor **Gustavo Guanabara**.
 
----
-
 ## Estrutura do Curso
-
-O repositório cobre desde os primeiros passos com sintaxe básica até estruturas de dados avançadas e modularização:
 
 - **Mundo 1 (Fundamentos):**
   - Configuração do ambiente e primeiros comandos
